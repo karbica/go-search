@@ -1,3 +1,3 @@
-module github.com/karbica/godoc-search/v0
+module github.com/karbica/go-search/v0
 
 go 1.14
