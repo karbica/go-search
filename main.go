@@ -54,6 +54,8 @@ func (s *Search) Run() *Response {
 		log.Fatalf("Error decoding response from GoDoc API: %v", err)
 	}
 
+	body.Results = body.Results[:s.Count]
+
 	return &body
 }
 
@@ -78,6 +80,16 @@ func main() {
 	flag.IntVar(&s.Count, "c", 6, "the number of results to return (shorthand)")
 
 	flag.Parse()
+
+	if len(os.Args) <= 1 {
+		fmt.Println("Godoc-search is a program for searching packages on GoDoc.")
+		fmt.Println()
+		fmt.Println("Usage:")
+		fmt.Println()
+		flag.PrintDefaults()
+		fmt.Println()
+		os.Exit(1)
+	}
 
 	if s.Query == "" {
 		log.Fatal("No query parameter `q` provided.")
